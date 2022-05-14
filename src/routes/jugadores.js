@@ -3,7 +3,7 @@ const app = express.Router();
 const conn = require('../settings/db');
 const jwt = require('jsonwebtoken');
 
-
+//Función para traer jugadores que hayan participado
 app.get('/', (req, res) => {
     conn.query('select * from RetoTecnico.jugador', (err, row, fields) => {
         if (!err) {
@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
     });
 });
 
+//Función para  registrar a un nuevo jugador
 app.post('/registro', (req, res) => {
     const {
         nombre,
@@ -50,12 +51,13 @@ app.post('/registro', (req, res) => {
     });
 });
 
+
+//Función para loguear a un jugador
 app.post('/loguear', (req, res) => {
     const {
         nombre,
         apellido
     } = req.body;
-    console.log(req.body);
     conn.query(`select 
                 id_jugador,
                 nombre,
@@ -80,6 +82,7 @@ app.post('/loguear', (req, res) => {
         });
 });
 
+//Función para actualizar el premio actual de cada jugador
 app.put('/premio', (req,res)=>{
 const {id_jugador, nombre, apellido, premio} = req.body;
 conn.query(`
