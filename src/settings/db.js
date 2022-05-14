@@ -1,8 +1,7 @@
-const mysql = require('mysql');
-const { database } = require('./keys');
-const { promisify } = require('util');
+const mysql = require('mysql'); //Se obtienen los plugings de mysql
+const { database } = require('./keys'); //Se obtienen los datos de ingreso
 
-const pool = mysql.createConnection(database);
+const pool = mysql.createConnection(database); //Creamos la conexión hacia la bd
 
 pool.connect((err)=>{
     if(err){

@@ -1,10 +1,9 @@
 "use strict";
 
-var express = require('express');
+var express = require('express'); //Se obtienen las herramientas del framework de express
+
 
 var app = express();
-
-var pool = require('./settings/db');
 
 var bodyParser = require('body-parser');
 
@@ -14,9 +13,9 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(bodyParser.json());
-app.use(cors()); //Rutas
+app.use(cors()); //Se obtienen las rutas de la api para manipular la información de la base de datos
 
-var authRoutes = require('./routes/authentication');
+var authRoutes = require('./routes/jugadores');
 
 var rondas = require('./routes/Rondas/rondas');
 

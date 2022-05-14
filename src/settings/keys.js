@@ -1,3 +1,4 @@
+//Datos de ingreso de la base de datos local
 module.exports = {
     database: {
         host: 'localhost',

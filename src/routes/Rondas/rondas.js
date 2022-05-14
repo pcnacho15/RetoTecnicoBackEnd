@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express.Router();
-const conn = require('../../settings/db');
+const conn = require('../../settings/db'); //Se obtiene la conexión de la bd
 
-
+//Se hace una consulta sql hacia la bd para traernos las rondas que el usuario pide
 app.get('/:dificultad', (req, res) => {
     const {dificultad} = req.params;
     conn.query(`select 
@@ -28,6 +28,7 @@ app.get('/:dificultad', (req, res) => {
     });
 });
 
+//Se traen las opciones de acuerdo a la pregunta escogida por el sistema
 app.get('/opciones/:id_pregunta', (req, res) => {
     const {id_pregunta} = req.params
     conn.query(`select 
@@ -43,6 +44,7 @@ app.get('/opciones/:id_pregunta', (req, res) => {
     });
 });
 
+//Se crea el intento de juego que hizo el usuario
 app.post('/participacion', (req, res) => {
     const {
         fecha_participa,
@@ -60,6 +62,7 @@ app.post('/participacion', (req, res) => {
         });
 });
 
+//Se trae la información de todos los intentos que realizó el jugador que tenga la sesión iniciada
 app.get('/jugadorParticipado/:id_jugador', (req,res)=>{
     const {id_jugador} = req.params
     conn.query(`

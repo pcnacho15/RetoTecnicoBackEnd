@@ -4,7 +4,9 @@ var express = require('express');
 
 var app = express.Router();
 
-var conn = require('../../settings/db');
+var conn = require('../../settings/db'); //Se obtiene la conexión de la bd
+//Se hace una consulta sql hacia la bd para traernos las rondas que el usuario pide
+
 
 app.get('/:dificultad', function (req, res) {
   var dificultad = req.params.dificultad;
@@ -15,7 +17,8 @@ app.get('/:dificultad', function (req, res) {
       res.json(err);
     }
   });
-});
+}); //Se traen las opciones de acuerdo a la pregunta escogida por el sistema
+
 app.get('/opciones/:id_pregunta', function (req, res) {
   var id_pregunta = req.params.id_pregunta;
   conn.query("select \n    opcion \n    from RetoTecnico.opcion\n    where id_pregunta = ".concat(id_pregunta), function (err, row, fields) {
@@ -25,7 +28,8 @@ app.get('/opciones/:id_pregunta', function (req, res) {
       res.json(err);
     }
   });
-});
+}); //Se crea el intento de juego que hizo el usuario
+
 app.post('/participacion', function (req, res) {
   var _req$body = req.body,
       fecha_participa = _req$body.fecha_participa,
@@ -38,7 +42,8 @@ app.post('/participacion', function (req, res) {
       res.json(err);
     }
   });
-});
+}); //Se trae la información de todos los intentos que realizó el jugador que tenga la sesión iniciada
+
 app.get('/jugadorParticipado/:id_jugador', function (req, res) {
   var id_jugador = req.params.id_jugador;
   conn.query("\n    select  \n    RetoTecnico.jugador.nombre, \n    RetoTecnico.participacion.fecha_participa, \n    RetoTecnico.participacion.premioObtenido\n    from RetoTecnico.participacion \n    join RetoTecnico.jugador on RetoTecnico.jugador.id_jugador = RetoTecnico.participacion.id_jugador  \n    where RetoTecnico.participacion.id_jugador = ".concat(id_jugador, "\n    "), function (err, row, fields) {
